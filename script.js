@@ -13,7 +13,8 @@ async function betoltSzavazasok() {
         
         let html = `
             <div class="szavazas-kartya">
-                <h3>${szavazas.kerdes}</h3>
+                <h3>${szavazas.kerdes} <button onclick="torles(${szavazas.id})" style="color:red; 
+				cursor:pointer; font-size: 0.8em; margin-left: 10px;">[Törlés]</button></h3>
                 <div id="opciok-kontener">
         `;
 
@@ -47,3 +48,21 @@ async function szavaz(id) {
 }
 
 document.addEventListener('DOMContentLoaded', betoltSzavazasok);
+
+async function ujSzavazas() {
+    const kerdes = document.getElementById('uj-kerdes').value;
+    if (!kerdes) return alert("Írj be egy kérdést!");
+    await fetch('/api/uj-szavazas', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ kerdes })
+    });
+    location.reload(); // Frissítjük az oldalt, hogy látszódjon az új
+}
+
+async function torles(id) {
+    if (confirm("Biztosan törlöd?")) {
+        await fetch(`/api/torles/${id}`, { method: 'DELETE' });
+        location.reload();
+    }
+}
