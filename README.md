@@ -15,3 +15,5 @@ Ez egy online szavazási platform, ahol a felhasználók különböző kérdése
 ## API végpontok
 - `GET /api/szavazasok`: Szavazások lekérése.
 - `POST /api/szavazat`: Szavazat beküldése.
+
+Készítette: Kocsy Zoltán, 2026.
