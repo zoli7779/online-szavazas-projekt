@@ -53,7 +53,7 @@ app.post('/api/szavazat', (req, res) => {
 
 app.post('/api/uj-szavazas', (req, res) => {
     const { kerdes } = req.body;
-    db.run("INSERT INTO szavazasok (kerdes, igen, nem) VALUES (?, 0, 0)", [kerdes], function(err) {
+    db.run("INSERT INTO szavazasok (kerdes) VALUES (?)", [kerdes], function(err) {
         if (err) return res.status(500).send(err.message);
         res.json({ id: this.lastID });
     });
