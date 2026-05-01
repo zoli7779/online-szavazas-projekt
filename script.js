@@ -8,8 +8,7 @@ async function betoltSzavazasok() {
         const listaDiv = document.getElementById('szavazas-lista');
         listaDiv.innerHTML = '';
 
-        // Egyszerű csoportosítás (mivel a JOIN miatt több sor jön)
-        const szavazas = adatok[0]; // Példa kedvéért az elsőt vesszük
+        const szavazas = adatok[0];
         
         let html = `
             <div class="szavazas-kartya">
@@ -43,7 +42,7 @@ async function szavaz(id) {
 
     if (response.ok) {
         alert("Köszönjük a szavazatot!");
-        betoltSzavazasok(); // Frissítés
+        betoltSzavazasok(); 
     }
 }
 
@@ -57,7 +56,7 @@ async function ujSzavazas() {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ kerdes })
     });
-    location.reload(); // Frissítjük az oldalt, hogy látszódjon az új
+    location.reload();
 }
 
 async function torles(id) {
