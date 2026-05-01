@@ -50,12 +50,19 @@ document.addEventListener('DOMContentLoaded', betoltSzavazasok);
 
 async function ujSzavazas() {
     const kerdes = document.getElementById('uj-kerdes').value;
-    if (!kerdes) return alert("Írj be egy kérdést!");
-    await fetch('/api/uj-szavazas', {
+    const opciokString = document.getElementById('uj-opciok').value;
+    
+    if (!kerdes || !opciokString) return alert("Kérlek adj meg kérdést és opciókat is!");
+
+    // Szétszedjük a vesszővel elválasztott szöveget egy tömbbé
+    const opciok = opciokString.split(',').map(s => s.trim());
+
+    await fetch(`${apiBase}/uj-szavazas`, {
         method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ kerdes })
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ kerdes, opciok })
     });
+
     location.reload();
 }
 
