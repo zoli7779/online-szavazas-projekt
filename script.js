@@ -8,25 +8,51 @@ async function betoltSzavazasok() {
         const listaDiv = document.getElementById('szavazas-lista');
         listaDiv.innerHTML = '';
 
-        const szavazas = adatok[0];
-        
-        let html = `
-            <div class="szavazas-kartya">
-                <h3>${szavazas.kerdes} <button onclick="torles(${szavazas.id})" style="color:red; 
-				cursor:pointer; font-size: 0.8em; margin-left: 10px;">[Törlés]</button></h3>
-                <div id="opciok-kontener">
-        `;
+        if (adatok.length === 0) {
+            listaDiv.innerHTML = '<p>Nincs aktív szavazás.</p>';
+            return;
+        }
+
+        const szavazasokCsoportositva = {};
 
         adatok.forEach(sor => {
-            html += `
-                <button class="opcio-gomb" onclick="szavaz(${sor.opcio_id})">
-                    ${sor.szoveg} (${sor.voksok})
-                </button>
-            `;
+            if (!szavazasokCsoportositva[sor.id]) {
+                szavazasokCsoportositva[sor.id] = {
+                    id: sor.id,
+                    kerdes: sor.kerdes,
+                    opciok: []
+                };
+            }
+            if (sor.opcio_id) {
+                szavazasokCsoportositva[sor.id].opciok.push({
+                    id: sor.opcio_id,
+                    szoveg: sor.szoveg,
+                    voksok: sor.voksok
+                });
+            }
         });
 
-        html += `</div></div>`;
-        listaDiv.innerHTML = html;
+        let veglegesHtml = '';
+        for (const id in szavazasokCsoportositva) {
+            const szavazas = szavazasokCsoportositva[id];
+            
+            veglegesHtml += `
+                <div class="szavazas-kartya" style="margin-bottom: 20px; border: 1px solid #ddd; padding: 15px; border-radius: 8px; background: white;">
+                    <h3>${szavazas.kerdes} 
+                        <button onclick="torles(${szavazas.id})" style="color:red; cursor:pointer; font-size: 0.8em; margin-left: 10px;">[Törlés]</button>
+                    </h3>
+                    <div class="opciok-kontener">
+                        ${szavazas.opciok.map(sor => `
+                            <button class="opcio-gomb" onclick="szavaz(${sor.id})">
+                                ${sor.szoveg} (${sor.voksok})
+                            </button>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+        }
+        
+        listaDiv.innerHTML = veglegesHtml;
 
     } catch (err) {
         console.error("Hiba az adatok lekérésekor:", err);

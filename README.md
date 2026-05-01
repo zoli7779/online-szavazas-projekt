@@ -10,7 +10,7 @@ Ez egy online szavazási platform, ahol a felhasználók különböző kérdése
 1. Node.js telepítése szükséges.
 2. A projekt mappájában: `npm install`
 3. Szerver indítása: `node server.js`
-4. Nyisd meg az `index.html` fájlt a böngészőben vagy írd be ezt a böngészősávba:http://localhost:3000.
+4. Írd be ezt a böngészősávba:http://localhost:3000
 
 ## API végpontok
 - `GET /api/szavazasok`: Szavazások lekérése.
