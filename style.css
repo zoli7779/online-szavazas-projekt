@@ -28,7 +28,6 @@ header {
     padding: 1rem;
 }
 
-/* Kártya stílus Flexboxszal */
 .szavazas-kartya {
     background: white;
     padding: 20px;
@@ -54,7 +53,6 @@ header {
     background-color: #2980b9;
 }
 
-/* Reszponzivitás: Mobil nézet */
 @media (max-width: 600px) {
     h1 { font-size: 1.5rem; }
     .container { width: 95%; }
