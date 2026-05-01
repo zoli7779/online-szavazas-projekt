@@ -14,8 +14,8 @@ const db = new sqlite3.Database('./szavazas.db', (err) => {
 
 // Táblák létrehozása
 db.serialize(() => {
-    db.run("CREATE TABLE szavazasok (id INTEGER PRIMARY KEY, kerdes TEXT)");
-    db.run("CREATE TABLE opciok (id INTEGER PRIMARY KEY, szavazas_id INTEGER, szoveg TEXT, voksok INTEGER DEFAULT 0)");
+    db.run("CREATE TABLE IF NOT EXISTS szavazasok (id INTEGER PRIMARY KEY, kerdes TEXT)");
+    db.run("CREATE TABLE IF NOT EXISTS opciok (id INTEGER PRIMARY KEY, szavazas_id INTEGER, szoveg TEXT, voksok INTEGER DEFAULT 0)");
     
     // Mintaadatok
     db.run("INSERT INTO szavazasok (kerdes) VALUES ('Melyik a legjobb frontend keretrendszer?')");
