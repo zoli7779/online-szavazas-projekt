@@ -9,6 +9,7 @@ app.use(express.static('.'));
 
 const db = new sqlite3.Database('./szavazas.db', (err) => {
     if (err) console.error(err.message);
+	db.run("PRAGMA foreign_keys = ON");
     console.log('Kapcsolódva az SQLite adatbázishoz.');
 });
 
@@ -61,9 +62,14 @@ app.post('/api/uj-szavazas', (req, res) => {
 });
 
 app.delete('/api/torles/:id', (req, res) => {
-    db.run("DELETE FROM szavazasok WHERE id = ?", [req.params.id], (err) => {
+    const id = req.params.id;
+    db.run("DELETE FROM opciok WHERE szavazas_id = ?", [id], (err) => {
         if (err) return res.status(500).send(err.message);
-        res.send("Törölve");
+        
+        db.run("DELETE FROM szavazasok WHERE id = ?", [id], (err) => {
+            if (err) return res.status(500).send(err.message);
+            res.send("Sikeres törlés");
+        });
     });
 });
 
