@@ -13,11 +13,23 @@ const db = new sqlite3.Database('./szavazas.db', (err) => {
 
 
 db.serialize(() => {
-    db.run("CREATE TABLE IF NOT EXISTS szavazasok (id INTEGER PRIMARY KEY, kerdes TEXT)");
-    db.run("CREATE TABLE IF NOT EXISTS opciok (id INTEGER PRIMARY KEY, szavazas_id INTEGER, szoveg TEXT, voksok INTEGER DEFAULT 0)");
     
-    db.run("INSERT INTO szavazasok (kerdes) VALUES ('Melyik a legjobb frontend keretrendszer?')");
-    db.run("INSERT INTO opciok (szavazas_id, szoveg) VALUES (1, 'React'), (1, 'Vue'), (1, 'Angular')");
+    db.run("CREATE TABLE IF NOT EXISTS szavazasok (id INTEGER PRIMARY KEY AUTOINCREMENT, kerdes TEXT)");
+    db.run("CREATE TABLE IF NOT EXISTS opciok (id INTEGER PRIMARY KEY AUTOINCREMENT, szavazas_id INTEGER, szoveg TEXT, voksok INTEGER DEFAULT 0)");
+
+    db.get("SELECT COUNT(*) as count FROM szavazasok", (err, row) => {
+        if (!err && row.count === 0) {
+            console.log("Az adatbázis üres, alapértelmezett adatok hozzáadása...");
+            
+            db.run("INSERT INTO szavazasok (kerdes) VALUES ('Melyik a legjobb frontend keretrendszer?')", function(err) {
+                if (!err) {
+                    const lastId = this.lastID;
+                    db.run(`INSERT INTO opciok (szavazas_id, szoveg) VALUES 
+                           (?, 'React'), (?, 'Vue'), (?, 'Angular')`, [lastId, lastId, lastId]);
+                }
+            });
+        }
+    });
 });
 
 app.get('/api/szavazasok', (req, res) => {
