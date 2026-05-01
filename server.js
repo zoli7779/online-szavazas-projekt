@@ -55,7 +55,7 @@ app.post('/api/szavazat', (req, res) => {
 });
 
 app.post('/api/uj-szavazas', (req, res) => {
-    const { kerdes, opciok } = req.body; // Megkapjuk a kérdést és a tömböt
+    const { kerdes, opciok } = req.body; 
 
     if (!kerdes || !opciok || !Array.isArray(opciok)) {
         return res.status(400).send("Hiányzó adatok!");
@@ -66,7 +66,7 @@ app.post('/api/uj-szavazas', (req, res) => {
         
         const lastId = this.lastID;
         
-        // Dinamikusan beszúrjuk az összes kapott opciót
+        
         const stmt = db.prepare("INSERT INTO opciok (szavazas_id, szoveg) VALUES (?, ?)");
         opciok.forEach(opcio => {
             stmt.run(lastId, opcio);
