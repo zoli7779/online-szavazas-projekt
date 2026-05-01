@@ -36,7 +36,8 @@ db.serialize(() => {
 
 app.get('/api/szavazasok', (req, res) => {
     const sql = `SELECT s.id, s.kerdes, o.id as opcio_id, o.szoveg, o.voksok 
-                 FROM szavazasok s JOIN opciok o ON s.id = o.szavazas_id`;
+                 FROM szavazasok s 
+                 LEFT JOIN opciok o ON s.id = o.szavazas_id`; // LEFT JOIN-ra váltottunk
     db.all(sql, [], (err, rows) => {
         if (err) return res.status(500).json({ error: err.message });
         res.json(rows);
@@ -55,9 +56,17 @@ app.post('/api/szavazat', (req, res) => {
 
 app.post('/api/uj-szavazas', (req, res) => {
     const { kerdes } = req.body;
+    if (!kerdes) return res.status(400).send("Hiányzik a kérdés!");
+
     db.run("INSERT INTO szavazasok (kerdes) VALUES (?)", [kerdes], function(err) {
         if (err) return res.status(500).send(err.message);
-        res.json({ id: this.lastID });
+        
+        const lastId = this.lastID;
+        
+        db.run("INSERT INTO opciok (szavazas_id, szoveg) VALUES (?, 'Igen'), (?, 'Nem')", [lastId, lastId], (err) => {
+            if (err) return res.status(500).send(err.message);
+            res.json({ id: lastId });
+        });
     });
 });
 
