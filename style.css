@@ -53,6 +53,14 @@ header {
     background-color: #2980b9;
 }
 
+.poll-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    margin-bottom: 30px; /* Ez fogja eltolni őket egymástól */
+}
+
 @media (max-width: 600px) {
     h1 { font-size: 1.5rem; }
     .container { width: 95%; }
