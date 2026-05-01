@@ -55,18 +55,25 @@ app.post('/api/szavazat', (req, res) => {
 });
 
 app.post('/api/uj-szavazas', (req, res) => {
-    const { kerdes } = req.body;
-    if (!kerdes) return res.status(400).send("Hiányzik a kérdés!");
+    const { kerdes, opciok } = req.body; // Megkapjuk a kérdést és a tömböt
+
+    if (!kerdes || !opciok || !Array.isArray(opciok)) {
+        return res.status(400).send("Hiányzó adatok!");
+    }
 
     db.run("INSERT INTO szavazasok (kerdes) VALUES (?)", [kerdes], function(err) {
         if (err) return res.status(500).send(err.message);
         
         const lastId = this.lastID;
         
-        db.run("INSERT INTO opciok (szavazas_id, szoveg) VALUES (?, 'Igen'), (?, 'Nem')", [lastId, lastId], (err) => {
-            if (err) return res.status(500).send(err.message);
-            res.json({ id: lastId });
+        // Dinamikusan beszúrjuk az összes kapott opciót
+        const stmt = db.prepare("INSERT INTO opciok (szavazas_id, szoveg) VALUES (?, ?)");
+        opciok.forEach(opcio => {
+            stmt.run(lastId, opcio);
         });
+        stmt.finalize();
+
+        res.json({ id: lastId });
     });
 });
 
