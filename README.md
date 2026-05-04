@@ -29,6 +29,7 @@ Ez egy egyszerű, Docker-alapú webalkalmazás, amely lehetővé teszi szavazás
 3. Az oldal elérhető: `http://localhost:3000`
 
 
+
 Fejlesztő:
 
 Név: Kocsy Zoltán  
