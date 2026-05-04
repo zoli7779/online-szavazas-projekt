@@ -30,7 +30,7 @@ Ez egy egyszerű, Docker-alapú webalkalmazás, amely lehetővé teszi szavazás
 
 
   
-Fejlesztő:
+Fejlesztő:  
 Név: Kocsy Zoltán  
 Tárgy: Webprogramozás alapjai projektfeladat  
 Dátum: 2026. 05. 04.  
