@@ -1,50 +1,33 @@
-Online Szavazó Platform
-Egy teljes körű (Full-Stack) webalkalmazás, amely lehetővé teszi szavazások létrehozását, kezelését és a voksok leadását.
+# Online Szavazó Platform
 
-Funkciók:
-	Dinamikus szavazás létrehozás: Új kérdések felvétele tetszőleges számú, vesszővel elválasztott opcióval.
+Ez egy egyszerű, Docker-alapú webalkalmazás, amely lehetővé teszi szavazások létrehozását, leadását és törlését.
 
-	Valós idejű szavazás: Voksok leadása és az eredmények azonnali frissítése.
+## Funkciók
+*   **Szavazások megtekintése:** Az összes aktív szavazás listázása.
+*   **Szavazat leadása:** Interaktív gombok segítségével voksok rögzítése.
+*   **Új szavazás hozzáadása:** Adminisztrátori felületen keresztül új kérdések és opciók felvitele.
+*   **Törlés:** Meglévő szavazások eltávolítása az adatbázisból.
 
-	Adminisztráció: Meglévő szavazások törlése az adatbázisból (függő adatokkal együtt).
+## Technológiai stack
+*   **Frontend:** HTML5, CSS3, JavaScript (Vanilla JS)
+*   **Backend:** Node.js, Express keretrendszer
+*   **Adatbázis:** SQLite3
+*   **Konténerizáció:** Docker és Docker Compose
 
-	Reszponzív felület: Modern, kártya-alapú megjelenítés, amely minden eszközön jól mutat.
+## Telepítés és futtatás
 
-Technológiai stack:
-	Frontend: HTML5, CSS3 (Flexbox/Grid), JavaScript (ES6+ Fetch API).
+A projekt futtatásához szükséges a Docker Desktop telepítése.
 
-	Backend: Node.js, Express keretrendszer.
+1. Másolja le a projektfájlokat egy mappába.
+2. Nyisson egy terminált az adott mappában.
+3. Futtassa a következő parancsot:
+   ```bash
+   docker-compose up --build -d
+   ```
+4. Nyissa meg a böngészőt az alábbi címen:http://localhost:3000
 
-	Adatbázis: SQLite3 (relációs adatbázis).
+Fejlesztő:
 
-	Konténerizáció: Docker és Docker Compose támogatás.
-
-Telepítés és futtatás:
-Lokális futtatás (Node.js)
-	Telepítsd a függőségeket:
-
-	Bash
-	npm install
-	
-	Indítsd el a szervert:
-
-	Bash
-	node server.js
-
-		3. Nyisd meg a böngészőben: `http://localhost:3000`
-
-		### Futtatás Dockerrel
-		```bash
-		docker-compose up --build
-		```
-		
- Projektfelépítés:
-	server.js: Az Express szerver és a REST API végpontok (GET, POST, DELETE).
-
-	script.js: A frontend logika, az adatok csoportosítása és dinamikus renderelése.
-
-	szavazas.db: Az SQLite adatbázis fájl.
-
-	style.css: A vizuális megjelenésért felelős stíluslap.
-
-Készítette: Kocsy Zoltán, 2026.
+Név: Kocsy Zoltán
+Tárgy: Webprogramozás alapjai projektfeladat
+Dátum: 2026. 05. 04.
