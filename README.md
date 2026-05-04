@@ -16,15 +16,18 @@ Ez egy egyszerű, Docker-alapú webalkalmazás, amely lehetővé teszi szavazás
 
 ## Telepítés és futtatás
 
-A projekt futtatásához szükséges a Docker Desktop telepítése.
+### Telepítés
+1. Győződjön meg róla, hogy a Node.js telepítve van.
+2. Telepítse a függőségeket (ha van package.json): `npm install`
 
-1. Másolja le a projektfájlokat egy mappába.
-2. Nyisson egy terminált az adott mappában.
-3. Futtassa a következő parancsot:
-   ```bash
-   docker-compose up --build -d
-   ```
-4. Nyissa meg a böngészőt az alábbi címen:http://localhost:3000
+### Indítás
+1. Nyisson egy terminált a projekt mappájában.
+2. Indítsa el a szervert:
+```bash
+   node server.js
+```
+3. Az oldal elérhető: `http://localhost:3000`
+
 
 Fejlesztő:
 
