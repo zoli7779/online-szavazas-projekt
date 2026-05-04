@@ -10,17 +10,12 @@
     <header>
         <h1>Szavazási Platform</h1>
     </header>
-	
-	<div style="background: #eee; padding: 10px; margin-bottom: 20px; text-align: center;">
-        <button onclick="alert('Admin felület megnyitása...')">Admin belépés</button>
-        <button onclick="fetch('/api/user/history/1').then(r=>r.json()).then(d=>alert('Eddigi szavazataid: ' + JSON.stringify(d)))">Saját történetem</button>
+
+    <div class="admin-panel">
+        <input type="text" id="uj-kerdes" placeholder="Új szavazás kérdése...">
+        <input type="text" id="uj-opciok" placeholder="Opciók (vesszővel elválasztva): Alma, Körte, Barack">
+        <button onclick="ujSzavazas()">Hozzáadás</button>
     </div>
-	
-	<div class="admin-panel">
-		<input type="text" id="uj-kerdes" placeholder="Új szavazás kérdése...">
-		<input type="text" id="uj-opciok" placeholder="Opciók (vesszővel elválasztva: Alma, Körte, Barack)">
-		<button onclick="ujSzavazas()">Hozzáadás</button>
-	</div>
 
     <main class="container">
         <section id="aktiv-szavazasok">
